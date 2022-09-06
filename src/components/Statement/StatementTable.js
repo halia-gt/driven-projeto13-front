@@ -1,7 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Transaction from "./Transaction";
 
-export default function StatementTable({ statementArr }) {
+export default function StatementTable({ statementArr, handleClick }) {
     const sum = statementArr.reduce((previousValue, currentValue) => {
         const numb = currentValue.amount.replace(",", ".");
         if (currentValue.type === 'income') {
@@ -10,19 +11,20 @@ export default function StatementTable({ statementArr }) {
             return previousValue - Number(numb);
         }
     }, 0);
+    const navigate = useNavigate();
 
-    function handleClick(id) {
+    function deleteConfirm(id) {
         const confirm = window.confirm('Tem certeza que deseja deletar?');
     }
 
     return (
         <>
-            {statementArr ? (
+            {statementArr.length > 0 ? (
                     <TableWrapper table={true}>
                         <table>
                             <tbody>
                                 {statementArr.map(transaction => (
-                                    <Transaction key={transaction.id} {...transaction} />
+                                    <Transaction key={transaction.id} {...transaction} deleteConfirm={deleteConfirm} handleClick={handleClick} />
                                 ))}
                             </tbody>
                         </table>

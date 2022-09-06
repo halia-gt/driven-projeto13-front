@@ -44,8 +44,8 @@ export default function Statement() {
     // const statementArr = undefined;
     const navigate = useNavigate();
 
-    function handleClick(type) {
-        navigate("/transaction/add", { state: type });
+    function handleClick(addOrEdit, type, id=undefined) {
+        navigate("/transaction", { state: {addOrEdit, type, id} });
     }
 
     if (auth) {
@@ -58,16 +58,16 @@ export default function Statement() {
                     </IconContext.Provider>
                 </header>
 
-                <StatementTable statementArr={statementArr} />
+                <StatementTable statementArr={statementArr} handleClick={handleClick} />
 
                 <footer>
-                        <button onClick={() => handleClick('entrada')}>
+                        <button onClick={() => handleClick('add', 'entrada')}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlinePlusCircle />
                             </IconContext.Provider>
                             Nova<br />entrada
                         </button>
-                        <button onClick={() => handleClick('saída')}>
+                        <button onClick={() => handleClick('add', 'saída')}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlineMinusCircle />
                             </IconContext.Provider>

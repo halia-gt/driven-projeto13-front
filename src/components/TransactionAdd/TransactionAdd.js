@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { FormWrapper } from "../../assets/styles/FormWrapper";
 
 export default function TransactionAdd() {
-    const state = useLocation().state;
+    const { addOrEdit, type, id } = useLocation().state;
     const [data, setData] = useState({
         amount: '',
         description: ''
@@ -22,7 +22,7 @@ export default function TransactionAdd() {
 
     return (
         <FormWrapper>
-            <h2>Nova {state}</h2>
+            {addOrEdit === 'add' ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="number"
@@ -40,7 +40,7 @@ export default function TransactionAdd() {
                     onChange={updateData}
                     required
                 />
-                <button type="submit">Salvar {state}</button>
+                {addOrEdit === 'add' ? <button type="submit">Salvar {type}</button> : <button type="submit">Atualizar {type}</button>}
             </form>
         </FormWrapper>
     );

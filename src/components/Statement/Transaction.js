@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-export default function Transaction({ id, time, description, amount, type }) {
+export default function Transaction({ id, time, description, amount, type, deleteConfirm, handleClick }) {
+    const text = type === 'income' ? 'entrada' : 'saída';
 
     return (
         <tr>
             <Time>{time}</Time>
-            <Description>{description}</Description>
+            <Description onClick={() => handleClick('edit', text, id)}>{description}</Description>
             <Amount type={type}>{amount}</Amount>
-            <Delete onClick={() => handleClick(id)}>x</Delete>
+            <Delete onClick={() => deleteConfirm(id)}>x</Delete>
         </tr>
     );
 }
