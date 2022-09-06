@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { IoExitOutline } from 'react-icons/io5';
@@ -10,38 +10,43 @@ export default function Statement() {
     const name = 'Nathalia';
     const auth = true;
     const isPositive = true;
-    // const statementArr = [{
-    //     id: 1,
-    //     time: "30/11",
-    //     description: "Almoço mãe",
-    //     amount: "39,90",
-    //     type: "expense"
-    // }, {
-    //     id: 2,
-    //     time: "27/11",
-    //     description: "Mercado",
-    //     amount: "542,54",
-    //     type: "expense"
-    // }, {
-    //     id: 3,
-    //     time: "26/11",
-    //     description: "Compras churrasco",
-    //     amount: "67,60",
-    //     type: "expense"
-    // }, {
-    //     id: 4,
-    //     time: "20/11",
-    //     description: "Empréstimo Maria",
-    //     amount: "500,00",
-    //     type: "income"
-    // }, {
-    //     id: 5,
-    //     time: "15/11",
-    //     description: "Salário",
-    //     amount: "3000,00",
-    //     type: "income"
-    // }];
-    const statementArr = undefined;
+    const statementArr = [{
+        id: 1,
+        time: "30/11",
+        description: "Almoço mãe",
+        amount: "39,90",
+        type: "expense"
+    }, {
+        id: 2,
+        time: "27/11",
+        description: "Mercado",
+        amount: "542,54",
+        type: "expense"
+    }, {
+        id: 3,
+        time: "26/11",
+        description: "Compras churrasco",
+        amount: "67,60",
+        type: "expense"
+    }, {
+        id: 4,
+        time: "20/11",
+        description: "Empréstimo Maria",
+        amount: "500,00",
+        type: "income"
+    }, {
+        id: 5,
+        time: "15/11",
+        description: "Salário",
+        amount: "3000,00",
+        type: "income"
+    }];
+    // const statementArr = undefined;
+    const navigate = useNavigate();
+
+    function handleClick(type) {
+        navigate("/transaction/add", { state: type });
+    }
 
     if (auth) {
         return (
@@ -70,19 +75,19 @@ export default function Statement() {
 
                     ) : (
                         <TableWrapper table={false}>
-                            Não há registros de<br />entrada ou saída
+                            <span>Não há registros de<br />entrada ou saída</span>
                         </TableWrapper>
                     )
                 }
 
                 <footer>
-                        <button>
+                        <button onClick={() => handleClick('entrada')}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlinePlusCircle />
                             </IconContext.Provider>
                             Nova<br />entrada
                         </button>
-                        <button>
+                        <button onClick={() => handleClick('saída')}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlineMinusCircle />
                             </IconContext.Provider>
@@ -143,7 +148,7 @@ const TableWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: ${props => props.table ? "space-between" : "center"};
 
     table {
         width: 100%;
