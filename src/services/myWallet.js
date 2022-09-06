@@ -25,7 +25,6 @@ function postLogin(body) {
 
 function postTransaction(body) {
     const config = createHeaders();
-    const body = {};
     const promise = axios.post(`${BASE_URL}/transactions`, body, config);
     return promise;
 }

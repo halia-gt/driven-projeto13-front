@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { LoginWrapper } from "../../assets/styles/LoginWrapper";
+import { postLogin } from "../../services/myWallet";
 
 export default function Login() {
     const [data, setData] = useState({
@@ -19,6 +20,19 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        // postLogin(data)
+        //     .then((answer) => {
+        //         const token = answer.data.token;
+        //         const name = answer.data.name;
+        //         const authJSON = JSON.stringify({ token, name });
+        //         localStorage.setItem('mywallet', authJSON);
+
+        //         navigate('/statement');
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.message);
+        //     }); 
     }
     
     if (auth) {

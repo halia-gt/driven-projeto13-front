@@ -31,7 +31,7 @@ export default function SignUp() {
                     placeholder="Nome"
                     name="name"
                     value={data.name}
-                    updateData={updateData}
+                    onChange={updateData}
                     required                
                 />
                 <input
@@ -39,7 +39,7 @@ export default function SignUp() {
                     placeholder="E-mail"
                     name="email"
                     value={data.email}
-                    updateData={updateData}
+                    onChange={updateData}
                     required                
                 />
                 <input
@@ -47,7 +47,7 @@ export default function SignUp() {
                     placeholder="Senha"
                     name="password"
                     value={data.password}
-                    updateData={updateData}
+                    onChange={updateData}
                     required                
                 />
                 <input
@@ -55,7 +55,7 @@ export default function SignUp() {
                     placeholder="Confirme a senha"
                     name="confirmation"
                     value={data.confirmation}
-                    updateData={updateData}
+                    onChange={updateData}
                     required                
                 />
                 <button type="submit">Cadastrar</button>
