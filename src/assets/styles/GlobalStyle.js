@@ -40,42 +40,45 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    a {
+        text-decoration: none;
+    }
     body {
-        line-height: 1;
-        font-family: 'Raleway', sans-serif;
         background-color: #8C11BE;
+        font-family: 'Raleway', sans-serif;
         font-size: 20px;
+        line-height: 1;
     }
     * {
         box-sizing: border-box;
     }
     input {
+        background-color: #FFFFFF;
         border: none;
         border-radius: 5px;
-        height: 58px;
-        padding: 0 15px;
+        color: #000000;
         font-family: 'Raleway', sans-serif;
         font-size: 20px;
-        color: #000000;
-        background-color: #FFFFFF;
+        height: 58px;
         margin-bottom: 13px;
+        padding: 0 15px;
     }
     input::placeholder {
-        font-family: 'Raleway', sans-serif;
         color: #000000;
+        font-family: 'Raleway', sans-serif;
     }
     button {
-        border: none;
         background: #A328D6;
+        border: none;
         border-radius: 5px;
-        font-size: 20px;
         color: #FFFFFF;
-        height: 46px;
+        font-size: 20px;
         font-weight: 700;
-
+        height: 46px;
     }
-    a {
-        text-decoration: none;
+    button:active {
+        font-size: calc(20px / 0.97);
+        transform: scale(0.97);
     }
     p {
         color: #FFFFFF;
