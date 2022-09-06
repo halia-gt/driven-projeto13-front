@@ -18,6 +18,6 @@ export const LoginWrapper = styled.div`
         display: flex;
         flex-direction: column;
         margin: 30px 0;
-        width: 80vw;
+        width: 86vw;
     }
 `;
