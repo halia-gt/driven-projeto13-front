@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { IoExitOutline } from 'react-icons/io5';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
-import Transaction from "./Transaction";
+import StatementTable from "./StatementTable";
 
 export default function Statement() {
     // const auth = JSON.parse(localStorage.getItem("trackit"));
@@ -58,27 +58,7 @@ export default function Statement() {
                     </IconContext.Provider>
                 </header>
 
-                {statementArr ? (
-                        <TableWrapper table={true}>
-                            <table>
-                                <tbody>
-                                    {statementArr.map(transaction => (
-                                        <Transaction key={transaction.id} {...transaction} />
-                                    ))}
-                                </tbody>
-                            </table>
-                            <Balance isPositive={isPositive}>
-                                <p>SALDO</p>
-                                <span>2849,96</span>
-                            </Balance>
-                        </TableWrapper>
-
-                    ) : (
-                        <TableWrapper table={false}>
-                            <span>Não há registros de<br />entrada ou saída</span>
-                        </TableWrapper>
-                    )
-                }
+                <StatementTable statementArr={statementArr} />
 
                 <footer>
                         <button onClick={() => handleClick('entrada')}>
@@ -135,46 +115,5 @@ const Wrapper = styled.div`
         text-align: justify;
         width: 48%;
         font-size: 17px;
-    }
-`;
-
-const TableWrapper = styled.div`
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    height: calc(100vh - (25px + 16px + 30px + 25px + 13px + 114px));
-    padding: 10px;
-    width: 100%;
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: ${props => props.table ? "space-between" : "center"};
-
-    table {
-        width: 100%;
-        border-collapse:separate; 
-        border-spacing: 0 22px;
-    }
-
-    span {
-        color: #868686;
-        font-size: 20px;
-        text-align: center;
-    }
-`;
-
-const Balance = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: 17px;
-    width: 100%;
-
-    p {
-        color: #000000;
-        font-weight: 700;
-    }
-
-    span {
-        color: ${props => props.isPositive ? "#03AC00" : "#C70000"};
     }
 `;
