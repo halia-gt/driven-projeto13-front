@@ -29,7 +29,7 @@ function postTransaction(body) {
     return promise;
 }
 
-function getTransactions(body) {
+function getTransactions() {
     const config = createHeaders();
     const promise = axios.get(`${BASE_URL}/transactions`, config);
     return promise;
