@@ -47,9 +47,9 @@ function deleteTransaction(transactionId) {
     return promise;
 }
 
-function updateTransaction(transactionId) {
+function updateTransaction(body, transactionId) {
     const config = createHeaders();
-    const promise = axios.put(`${BASE_URL}/transactions/${transactionId}`, config);
+    const promise = axios.put(`${BASE_URL}/transactions/${transactionId}`, body, config);
     return promise;
 }
 

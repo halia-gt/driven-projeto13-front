@@ -24,13 +24,13 @@ export default function Statement({ statement, handleClick }) {
                         <table>
                             <tbody>
                                 {statement.map(transaction => (
-                                    <Transaction key={transaction.id} {...transaction} deleteConfirm={deleteConfirm} handleClick={handleClick} />
+                                    <Transaction key={transaction._id} {...transaction} deleteConfirm={deleteConfirm} handleClick={handleClick} />
                                 ))}
                             </tbody>
                         </table>
                         <Balance isPositive={sum >= 0}>
                             <p>SALDO</p>
-                            <span>{sum.replace(".", ",")}</span>
+                            <span>{sum.toFixed(2).replace(".", ",")}</span>
                         </Balance>
                     </TableWrapper>
                 ) : (

@@ -1,14 +1,16 @@
 import styled from "styled-components";
+import dayjs from "dayjs";
 
-export default function Transaction({ id, time, description, amount, type, deleteConfirm, handleClick }) {
+export default function Transaction({ _id, time, description, amount, type, deleteConfirm, handleClick }) {
     const text = type === "income" ? "entrada" : "saída";
+    const formatedTime = dayjs(time).format("DD/MM");
 
     return (
         <tr>
-            <Time>{time}</Time>
-            <Description onClick={() => handleClick("edit", text, id)}>{description}</Description>
+            <Time>{formatedTime}</Time>
+            <Description onClick={() => handleClick("edit", text, _id)}>{description}</Description>
             <Amount type={type}>{amount.replace(".", ",")}</Amount>
-            <Delete onClick={() => deleteConfirm(id)}>x</Delete>
+            <Delete onClick={() => deleteConfirm(_id)}>x</Delete>
         </tr>
     );
 }
@@ -19,6 +21,7 @@ const Time = styled.td`
 
 const Description = styled.td`
     color: #000000;
+    text-align: justify;
 `;
 
 const Amount = styled.td`

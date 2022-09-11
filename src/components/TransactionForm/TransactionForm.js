@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FormWrapper } from "../../assets/styles/FormWrapper";
+import { postTransaction, updateTransaction } from "../../services/myWallet";
 
 export default function TransactionForm() {
     const { addOrEdit, type, id } = useLocation().state;
+    const [disabled, setDisabled] = useState(false);
     const [data, setData] = useState({
         amount: "",
         description: ""
     });
+    const navigate = useNavigate();
 
     function updateData(e) {
         setData({
@@ -16,8 +19,40 @@ export default function TransactionForm() {
         });
     }
 
+    if (type === "saída") {
+        data.type = "expense";
+    }
+
+    if (type === "entrada") {
+        data.type = "income";
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
+        setDisabled(true);
+        data.amount = data.amount.replace(",", ".");
+
+        if (addOrEdit === "add") {
+            postTransaction(data)
+                .then(() => {
+                    navigate("/transactions");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setDisabled(false);
+                });
+        }
+
+        if (addOrEdit === "edit") {
+            updateTransaction(data, id)
+                .then(() => {
+                    navigate("/transactions");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setDisabled(false);
+                });
+        }
     }
 
     return (
@@ -25,11 +60,13 @@ export default function TransactionForm() {
             {addOrEdit === "add" ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
             <form onSubmit={handleSubmit}>
                 <input
-                    type="number"
+                    type="text"
                     placeholder="Valor"
                     name="amount"
                     value={data.amount}
                     onChange={updateData}
+                    disabled={disabled}
+                    pattern="[0-9]+([,\.][0-9]+)?"
                     required
                 />
                 <input
@@ -38,6 +75,7 @@ export default function TransactionForm() {
                     name="description"
                     value={data.description}
                     onChange={updateData}
+                    disabled={disabled}
                     required
                 />
                 {addOrEdit === "add" ? <button type="submit">Salvar {type}</button> : <button type="submit">Atualizar {type}</button>}
