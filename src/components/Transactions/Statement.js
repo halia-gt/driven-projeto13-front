@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Transaction from "./Transaction";
 
-export default function StatementTable({ statementArr, handleClick }) {
+export default function Statement({ statementArr, handleClick }) {
     const sum = statementArr.reduce((previousValue, currentValue) => {
         const numb = currentValue.amount.replace(",", ".");
         if (currentValue.type === 'income') {

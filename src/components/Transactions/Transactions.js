@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { IoExitOutline } from 'react-icons/io5';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
-import StatementTable from "./StatementTable";
+import Statement from "./Statement";
 
-export default function Statement() {
+export default function Transactions() {
     // const auth = JSON.parse(localStorage.getItem("trackit"));
     const name = 'Nathalia';
     const auth = true;
@@ -58,7 +58,7 @@ export default function Statement() {
                     </IconContext.Provider>
                 </header>
 
-                <StatementTable statementArr={statementArr} handleClick={handleClick} />
+                <Statement statementArr={statementArr} handleClick={handleClick} />
 
                 <footer>
                         <button onClick={() => handleClick('add', 'entrada')}>

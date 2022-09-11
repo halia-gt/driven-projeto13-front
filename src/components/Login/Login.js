@@ -36,7 +36,7 @@ export default function Login() {
     }
     
     if (auth) {
-        return (<Navigate to="/statement" />);
+        return (<Navigate to="/transactions" />);
     } else {
         return (
             <LoginWrapper>

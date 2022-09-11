@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FormWrapper } from "../../assets/styles/FormWrapper";
 
-export default function TransactionAdd() {
+export default function TransactionForm() {
     const { addOrEdit, type, id } = useLocation().state;
     const [data, setData] = useState({
         amount: '',
