@@ -4,6 +4,7 @@ import { LoginWrapper } from "../../assets/styles/LoginWrapper";
 import { postLogin } from "../../services/myWallet";
 
 export default function Login() {
+    const [disabled, setDisabled] = useState(false);
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -20,19 +21,21 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setDisabled(true);
 
-        // postLogin(data)
-        //     .then((answer) => {
-        //         const token = answer.data.token;
-        //         const name = answer.data.name;
-        //         const authJSON = JSON.stringify({ token, name });
-        //         localStorage.setItem('mywallet', authJSON);
+        postLogin(data)
+            .then((answer) => {
+                const token = answer.data.token;
+                const name = answer.data.name;
+                const infoJSON = JSON.stringify({ token, name });
+                localStorage.setItem('mywallet', infoJSON);
 
-        //         navigate('/statement');
-        //     })
-        //     .catch((error) => {
-        //         console.log(error.message);
-        //     }); 
+                navigate('/transactions');
+            })
+            .catch((error) => {
+                console.error(error);
+                setDisabled(false);
+            }); 
     }
     
     if (auth) {
@@ -48,6 +51,7 @@ export default function Login() {
                         name="email"
                         value={data.email}
                         onChange={updateData}
+                        disabled={disabled}
                         required
                     />
                     <input
@@ -56,6 +60,7 @@ export default function Login() {
                         name="password"
                         value={data.password}
                         onChange={updateData}
+                        disabled={disabled}
                         required
                     />
                     <button type="submit">Entrar</button>

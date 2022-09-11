@@ -35,7 +35,7 @@ export default function SignUp() {
                 navigate('/');
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setDisabled(false);  
             });
     }
@@ -78,7 +78,7 @@ export default function SignUp() {
                         type="password"
                         placeholder="Confirme a senha"
                         name="confirm_password"
-                        value={data.confirmation}
+                        value={data.confirm_password}
                         onChange={updateData}
                         disabled={disabled}
                         required
