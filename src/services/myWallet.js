@@ -23,6 +23,12 @@ function postLogin(body) {
     return promise;
 }
 
+function deleteSession() {
+    const config = createHeaders();
+    const promise = axios.post(`${BASE_URL}/login`, config);
+    return promise;
+}
+
 function postTransaction(body) {
     const config = createHeaders();
     const promise = axios.post(`${BASE_URL}/transactions`, body, config);
@@ -47,4 +53,4 @@ function updateTransaction(transactionId) {
     return promise;
 }
 
-export { postSignUp, postLogin, postTransaction, getTransactions, deleteTransaction, updateTransaction };
+export { postSignUp, postLogin, deleteSession, postTransaction, getTransactions, deleteTransaction, updateTransaction };
