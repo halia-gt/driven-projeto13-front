@@ -5,7 +5,7 @@ import Transaction from "./Transaction";
 export default function Statement({ statementArr, handleClick }) {
     const sum = statementArr.reduce((previousValue, currentValue) => {
         const numb = currentValue.amount.replace(",", ".");
-        if (currentValue.type === 'income') {
+        if (currentValue.type === "income") {
             return previousValue + Number(numb);
         } else {
             return previousValue - Number(numb);
@@ -14,7 +14,7 @@ export default function Statement({ statementArr, handleClick }) {
     const navigate = useNavigate();
 
     function deleteConfirm(id) {
-        const confirm = window.confirm('Tem certeza que deseja deletar?');
+        const confirm = window.confirm("Tem certeza que deseja deletar?");
     }
 
     return (

@@ -5,8 +5,8 @@ import { FormWrapper } from "../../assets/styles/FormWrapper";
 export default function TransactionForm() {
     const { addOrEdit, type, id } = useLocation().state;
     const [data, setData] = useState({
-        amount: '',
-        description: ''
+        amount: "",
+        description: ""
     });
 
     function updateData(e) {
@@ -22,7 +22,7 @@ export default function TransactionForm() {
 
     return (
         <FormWrapper>
-            {addOrEdit === 'add' ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
+            {addOrEdit === "add" ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="number"
@@ -40,7 +40,7 @@ export default function TransactionForm() {
                     onChange={updateData}
                     required
                 />
-                {addOrEdit === 'add' ? <button type="submit">Salvar {type}</button> : <button type="submit">Atualizar {type}</button>}
+                {addOrEdit === "add" ? <button type="submit">Salvar {type}</button> : <button type="submit">Atualizar {type}</button>}
             </form>
         </FormWrapper>
     );

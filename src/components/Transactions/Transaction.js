@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export default function Transaction({ id, time, description, amount, type, deleteConfirm, handleClick }) {
-    const text = type === 'income' ? 'entrada' : 'saída';
+    const text = type === "income" ? "entrada" : "saída";
 
     return (
         <tr>
             <Time>{time}</Time>
-            <Description onClick={() => handleClick('edit', text, id)}>{description}</Description>
+            <Description onClick={() => handleClick("edit", text, id)}>{description}</Description>
             <Amount type={type}>{amount}</Amount>
             <Delete onClick={() => deleteConfirm(id)}>x</Delete>
         </tr>
@@ -22,7 +22,7 @@ const Description = styled.td`
 `;
 
 const Amount = styled.td`
-    color: ${props => props.type === 'income' ? "#03AC00" : "#C70000"};
+    color: ${props => props.type === "income" ? "#03AC00" : "#C70000"};
     text-align: end;
 `;
 

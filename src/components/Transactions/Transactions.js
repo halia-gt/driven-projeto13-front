@@ -1,15 +1,15 @@
 import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
-import { IoExitOutline } from 'react-icons/io5';
-import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
+import { IoExitOutline } from "react-icons/io5";
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import Statement from "./Statement";
+import { deleteSession } from "../../services/myWallet";
 
 export default function Transactions() {
-    // const auth = JSON.parse(localStorage.getItem("trackit"));
-    const name = 'Nathalia';
-    const auth = true;
-    const isPositive = true;
+    const name = JSON.parse(localStorage.getItem("mywallet"))?.name;
+
     const statementArr = [{
         id: 1,
         time: "30/11",
@@ -44,30 +44,45 @@ export default function Transactions() {
     // const statementArr = undefined;
     const navigate = useNavigate();
 
-    function handleClick(addOrEdit, type, id=undefined) {
+    function handleClick(addOrEdit, type, id = undefined) {
         navigate("/transaction", { state: {addOrEdit, type, id} });
     }
 
-    if (auth) {
+    function logout() {
+        const confirm = window.confirm("Tem certeza que deseja sair?");
+
+        if (confirm) {
+            deleteSession()
+                .then(() => {
+                    localStorage.removeItem("mywallet");
+                    navigate("/");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+    if (name) {
         return (
             <Wrapper>
                 <header>
                     <h2>Olá, {name}</h2>
                     <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
-                        <IoExitOutline />
+                        <IoExitOutline onClick={logout} />
                     </IconContext.Provider>
                 </header>
 
                 <Statement statementArr={statementArr} handleClick={handleClick} />
 
                 <footer>
-                        <button onClick={() => handleClick('add', 'entrada')}>
+                        <button onClick={() => handleClick("add", "entrada")}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlinePlusCircle />
                             </IconContext.Provider>
                             Nova<br />entrada
                         </button>
-                        <button onClick={() => handleClick('add', 'saída')}>
+                        <button onClick={() => handleClick("add", "saída")}>
                             <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
                                 <AiOutlineMinusCircle />
                             </IconContext.Provider>

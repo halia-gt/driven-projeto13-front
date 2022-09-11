@@ -6,8 +6,8 @@ import { postLogin } from "../../services/myWallet";
 export default function Login() {
     const [disabled, setDisabled] = useState(false);
     const [data, setData] = useState({
-        email: '',
-        password: ''
+        email: "",
+        password: ""
     });
     const navigate = useNavigate();
     const auth = JSON.parse(localStorage.getItem("mywallet"));
@@ -28,9 +28,9 @@ export default function Login() {
                 const token = answer.data.token;
                 const name = answer.data.name;
                 const infoJSON = JSON.stringify({ token, name });
-                localStorage.setItem('mywallet', infoJSON);
+                localStorage.setItem("mywallet", infoJSON);
 
-                navigate('/transactions');
+                navigate("/transactions");
             })
             .catch((error) => {
                 console.error(error);

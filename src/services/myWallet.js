@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = "http://localhost:5000";
 
 function createHeaders() {
     const auth = JSON.parse(localStorage.getItem("mywallet"));
@@ -25,7 +25,7 @@ function postLogin(body) {
 
 function deleteSession() {
     const config = createHeaders();
-    const promise = axios.post(`${BASE_URL}/login`, config);
+    const promise = axios.delete(`${BASE_URL}/login`, config);
     return promise;
 }
 
