@@ -7,7 +7,7 @@ export default function Transaction({ id, time, description, amount, type, delet
         <tr>
             <Time>{time}</Time>
             <Description onClick={() => handleClick("edit", text, id)}>{description}</Description>
-            <Amount type={type}>{amount}</Amount>
+            <Amount type={type}>{amount.replace(".", ",")}</Amount>
             <Delete onClick={() => deleteConfirm(id)}>x</Delete>
         </tr>
     );

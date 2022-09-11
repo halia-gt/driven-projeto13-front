@@ -1,48 +1,26 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { IoExitOutline } from "react-icons/io5";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import Statement from "./Statement";
-import { deleteSession } from "../../services/myWallet";
+import { deleteSession, getTransactions } from "../../services/myWallet";
 
 export default function Transactions() {
     const name = JSON.parse(localStorage.getItem("mywallet"))?.name;
-
-    const statementArr = [{
-        id: 1,
-        time: "30/11",
-        description: "Almoço mãe",
-        amount: "39,90",
-        type: "expense"
-    }, {
-        id: 2,
-        time: "27/11",
-        description: "Mercado",
-        amount: "542,54",
-        type: "expense"
-    }, {
-        id: 3,
-        time: "26/11",
-        description: "Compras churrasco",
-        amount: "67,60",
-        type: "expense"
-    }, {
-        id: 4,
-        time: "20/11",
-        description: "Empréstimo Maria",
-        amount: "500,00",
-        type: "income"
-    }, {
-        id: 5,
-        time: "15/11",
-        description: "Salário",
-        amount: "3000,00",
-        type: "income"
-    }];
-    // const statementArr = undefined;
+    const [statement, setStatement] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getTransactions()
+            .then((answer) => {
+                setStatement(answer.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     function handleClick(addOrEdit, type, id = undefined) {
         navigate("/transaction", { state: {addOrEdit, type, id} });
@@ -54,7 +32,7 @@ export default function Transactions() {
         if (confirm) {
             deleteSession()
                 .then(() => {
-                    localStorage.removeItem("mywallet");
+                    localStorage.removeItem("mywallet");    
                     navigate("/");
                 })
                 .catch((error) => {
@@ -73,7 +51,7 @@ export default function Transactions() {
                     </IconContext.Provider>
                 </header>
 
-                <Statement statementArr={statementArr} handleClick={handleClick} />
+                <Statement statement={statement} handleClick={handleClick} />
 
                 <footer>
                         <button onClick={() => handleClick("add", "entrada")}>

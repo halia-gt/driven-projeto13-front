@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Transaction from "./Transaction";
 
-export default function Statement({ statementArr, handleClick }) {
-    const sum = statementArr.reduce((previousValue, currentValue) => {
+export default function Statement({ statement, handleClick }) {
+    const sum = statement.reduce((previousValue, currentValue) => {
         const numb = currentValue.amount.replace(",", ".");
         if (currentValue.type === "income") {
             return previousValue + Number(numb);
@@ -19,18 +19,18 @@ export default function Statement({ statementArr, handleClick }) {
 
     return (
         <>
-            {statementArr.length > 0 ? (
+            {statement.length > 0 ? (
                     <TableWrapper table={true}>
                         <table>
                             <tbody>
-                                {statementArr.map(transaction => (
+                                {statement.map(transaction => (
                                     <Transaction key={transaction.id} {...transaction} deleteConfirm={deleteConfirm} handleClick={handleClick} />
                                 ))}
                             </tbody>
                         </table>
                         <Balance isPositive={sum >= 0}>
                             <p>SALDO</p>
-                            <span>{sum}</span>
+                            <span>{sum.replace(".", ",")}</span>
                         </Balance>
                     </TableWrapper>
                 ) : (
