@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormWrapper } from "../../assets/styles/FormWrapper";
 import { postTransaction, updateTransaction } from "../../services/myWallet";
+import { IconContext } from "react-icons";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export default function TransactionForm() {
     const { addOrEdit, type, id } = useLocation().state;
@@ -55,9 +57,18 @@ export default function TransactionForm() {
         }
     }
 
+    function returnTransactions() {
+        navigate("/transactions");
+    }
+
     return (
         <FormWrapper>
-            {addOrEdit === "add" ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
+            <header>
+                {addOrEdit === "add" ? <h2>Nova {type}</h2> : <h2>Editar {type}</h2>}
+                <IconContext.Provider value={{ color: "#FFFFFF", className: "icon", size: "30px" }}>
+                    <BsArrowReturnLeft onClick={returnTransactions} />
+                </IconContext.Provider>
+            </header>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

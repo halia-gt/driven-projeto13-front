@@ -5,10 +5,16 @@ export const FormWrapper = styled.div`
     padding: 25px;
     width: 100vw;
 
+    header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+    }
+
     h2 {
         font-size: 26px;
         font-weight: 700;
-        margin-bottom: 25px;
     }
 
     form {
