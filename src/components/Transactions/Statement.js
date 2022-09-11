@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { deleteTransaction } from "../../services/myWallet.js";
 import Transaction from "./Transaction";
 
-export default function Statement({ statement, handleClick }) {
+export default function Statement({ statement, handleClick, reload, setReload }) {
     const sum = statement.reduce((previousValue, currentValue) => {
         const numb = currentValue.amount.replace(",", ".");
         if (currentValue.type === "income") {
@@ -11,10 +11,19 @@ export default function Statement({ statement, handleClick }) {
             return previousValue - Number(numb);
         }
     }, 0);
-    const navigate = useNavigate();
 
     function deleteConfirm(id) {
         const confirm = window.confirm("Tem certeza que deseja deletar?");
+
+        if (confirm) {
+            deleteTransaction(id)
+                .then(() => {
+                    setReload(!reload);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 
     return (

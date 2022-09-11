@@ -10,6 +10,7 @@ import { deleteSession, getTransactions } from "../../services/myWallet";
 export default function Transactions() {
     const name = JSON.parse(localStorage.getItem("mywallet"))?.name;
     const [statement, setStatement] = useState([]);
+    const [reload, setReload] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,7 @@ export default function Transactions() {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [reload]);
 
     function handleClick(addOrEdit, type, id = undefined) {
         navigate("/transaction", { state: {addOrEdit, type, id} });
@@ -51,7 +52,7 @@ export default function Transactions() {
                     </IconContext.Provider>
                 </header>
 
-                <Statement statement={statement} handleClick={handleClick} />
+                <Statement statement={statement} handleClick={handleClick} reload={reload} setReload={setReload} />
 
                 <footer>
                         <button onClick={() => handleClick("add", "entrada")}>
