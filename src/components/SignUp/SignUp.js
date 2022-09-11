@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { LoginWrapper } from "../../assets/styles/LoginWrapper";
+import { postSignUp } from "../../services/myWallet";
 
 export default function SignUp() {
+    const [disabled, setDisabled] = useState(false);
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -18,10 +20,24 @@ export default function SignUp() {
             [e.target.name]: e.target.value
         });
     }
-    console.log(data);
 
     function handleSubmit(e) {
         e.preventDefault();
+        setDisabled(true);
+        if (data.password !== data.confirm_password) {
+            alert('Confirmação de senha e senha devem ser iguais');
+            setDisabled(false);
+            return;
+        }
+        
+        postSignUp(data)
+            .then(() => {
+                navigate('/');
+            })
+            .catch((error) => {
+                console.log(error);
+                setDisabled(false);  
+            });
     }
 
     if (auth) {
@@ -37,7 +53,8 @@ export default function SignUp() {
                         name="name"
                         value={data.name}
                         onChange={updateData}
-                        required                
+                        disabled={disabled}
+                        required
                     />
                     <input
                         type="email"
@@ -45,7 +62,8 @@ export default function SignUp() {
                         name="email"
                         value={data.email}
                         onChange={updateData}
-                        required                
+                        disabled={disabled}
+                        required
                     />
                     <input
                         type="password"
@@ -53,15 +71,17 @@ export default function SignUp() {
                         name="password"
                         value={data.password}
                         onChange={updateData}
-                        required                
+                        disabled={disabled}
+                        required
                     />
                     <input
                         type="password"
                         placeholder="Confirme a senha"
-                        name="confirm   _password"
+                        name="confirm_password"
                         value={data.confirmation}
                         onChange={updateData}
-                        required                
+                        disabled={disabled}
+                        required
                     />
                     <button type="submit">Cadastrar</button>
                 </form> 
