@@ -63,6 +63,7 @@ const TableWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: ${props => props.table ? "space-between" : "center"};
+    overflow-y: scroll;
 
     table {
         width: 100%;

@@ -22,6 +22,7 @@ const Time = styled.td`
 const Description = styled.td`
     color: #000000;
     text-align: justify;
+    line-break: anywhere;
 `;
 
 const Amount = styled.td`
